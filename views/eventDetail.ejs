@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= event.name %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <% layout('layout') %>
+<div class="bg-white rounded-lg shadow-md p-6">
+  <h2 class="text-3xl font-bold mb-3 text-gray-700"><%= event.title %></h2>
+  <p class="mb-2 text-gray-600"><%= event.description %></p>
+  <p class="text-gray-500"> <%= event.date.toDateString() %></p>
+  <p class="text-gray-500 mb-4"> Seats Left: <%= event.availableSeats %></p>
+
+  <button id="bookBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg">Book Tickets</button>
+</div>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
+    <h3 class="text-2xl font-bold mb-4 text-gray-700">Book Your Tickets</h3>
+    <form action="/bookings/<%= event._id %>" method="POST">
+      <label class="block mb-2 text-gray-600">Number of Seats</label>
+      <input type="number" name="seats" min="1" max="<%= event.availableSeats %>" value="1" required
+             class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-lg font-semibold">Confirm Booking</button>
+    </form>
+    <button id="closeModal" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
+  </div>
+</div>
+
+<script>
+  const bookBtn = document.getElementById("bookBtn");
+  const modal = document.getElementById("bookingModal");
+  const closeModal = document.getElementById("closeModal");
+
+  bookBtn.addEventListener("click", () => modal.classList.remove("hidden"));
+  closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) modal.classList.add("hidden");
+  });
+</script>
+
+</body>
+</html>

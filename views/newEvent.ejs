@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Event</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <% layout('layout') %>
+<h2 class="text-2xl font-bold mb-6">Create New Event</h2>
+
+<form action="/events" method="POST" class="bg-white p-6 rounded-lg shadow-md max-w-lg">
+  <label class="block mb-2 font-semibold">Title</label>
+  <input type="text" name="title" required class="w-full p-3 mb-4 border rounded-lg">
+
+  <label class="block mb-2 font-semibold">Description</label>
+  <textarea name="description" required class="w-full p-3 mb-4 border rounded-lg"></textarea>
+
+  <label class="block mb-2 font-semibold">Date</label>
+  <input type="date" name="date" required class="w-full p-3 mb-4 border rounded-lg">
+
+  <label class="block mb-2 font-semibold">Available Seats</label>
+  <input type="number" name="availableSeats" required class="w-full p-3 mb-4 border rounded-lg">
+
+  <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white p-3 rounded-lg font-semibold">Create Event</button>
+</form>
+
+</body>
+</html>
