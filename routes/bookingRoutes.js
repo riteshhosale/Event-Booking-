@@ -2,6 +2,7 @@ const express = require("express");
 const Booking = require("../models/Booking");
 const Event = require("../models/Event");
 
+
 const router = express.Router();
 
 // Book event
