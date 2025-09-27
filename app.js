@@ -28,12 +28,16 @@ app.use((req, res, next) => {
 });
 
 // MongoDB connection (only once, no duplicate)
-mongoose.connect(process.env.MONGO_URI, { 
-    useNewUrlParser: true, 
-    useUnifiedTopology: true 
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000, // try for 5s before timing out
+    tls: true, // enforce TLS
+    tlsAllowInvalidCertificates: false // don’t allow self-signed certs
 })
 .then(() => console.log("MongoDB Connected"))
-.catch(err => console.error("MongoDB Error:", err));
+.catch(err => console.error("MongoDB Connection Error:", err.message));
+
 
 // Routes
 app.use("/", require("./routes/authRoutes"));
